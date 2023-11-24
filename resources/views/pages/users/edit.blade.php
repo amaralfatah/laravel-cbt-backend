@@ -28,7 +28,7 @@
                 <h2 class="section-title">Users</h2>
 
                 <div class="card">
-                    <form action="{{ route('users.store') }}" method="POST">
+                    <form action="{{ route('users.update', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -38,7 +38,8 @@
                             <div class="form-group">
                                 <label>Name</label>
                                 <input id="frist_name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="name" autofocus>
+                                    class="form-control @error('name') is-invalid @enderror" name="name"
+                                    value="{{ $user->name }}" autofocus>
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -48,7 +49,8 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email">
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ $user->email }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -79,24 +81,24 @@
                             </div>
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="number" class="form-control" name="phone">
+                                <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Roles</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="ADMIN" class="selectgroup-input"
-                                            checked="">
+                                            @if ($user->roles == 'ADMIN') checked @endif>
                                         <span class="selectgroup-button">Admin</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="STAFF" class="selectgroup-input"
-                                            checked="">
+                                            @if ($user->roles == 'STAFF') checked @endif>
                                         <span class="selectgroup-button">Staff</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="roles" value="USER" class="selectgroup-input"
-                                            checked="">
+                                            @if ($user->roles == 'USER') checked @endif>
                                         <span class="selectgroup-button">User</span>
                                     </label>
                                 </div>

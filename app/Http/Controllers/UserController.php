@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -41,5 +43,18 @@ class UserController extends Controller
     {
         $user = \App\Models\User::findOrFail($id);
         return view('pages.users.edit', compact('user'));
+    }
+
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        $data = $request->validated();
+        $user->update($data);
+        return redirect()->route('users.index')->with('success', 'User successfully updated');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User successfully deleted');
     }
 }
