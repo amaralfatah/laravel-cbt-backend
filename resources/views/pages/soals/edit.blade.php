@@ -28,7 +28,7 @@
                 <h2 class="section-title">Users</h2>
 
                 <div class="card">
-                    <form action="{{ route('user.update', $user) }}" method="POST">
+                    <form action="{{ route('users.update', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">

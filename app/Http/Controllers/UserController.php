@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index (Request $request)
     {
 
-        $users = \App\Models\User::paginate(10);
+        // $users = \App\Models\User::paginate(10);
         $users = DB::table('users')
         ->when($request->input('name'), function ($query, $name) {
             return $query->where('name', 'like', '%' . $name . '%');
@@ -36,7 +36,7 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
         \App\Models\User::create($data);
-        return redirect()->route('users.index')->with('success', 'User successfully created');
+        return redirect()->route('user.index')->with('success', 'User successfully created');
     }
 
     public function edit($id)
@@ -49,12 +49,12 @@ class UserController extends Controller
     {
         $data = $request->validated();
         $user->update($data);
-        return redirect()->route('users.index')->with('success', 'User successfully updated');
+        return redirect()->route('user.index')->with('success', 'User successfully updated');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User successfully deleted');
+        return redirect()->route('user.index')->with('success', 'User successfully deleted');
     }
 }
